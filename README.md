@@ -20,3 +20,8 @@
 
 ![项目主页](https://github.com/2111lidongyang/Pigsty-Recognition-System/blob/main/home.png)
 
+
+
+觉得对您有帮助的话就点一个星吧！
+
+需要猪舍识别的模型请联系：2192329581@qq.com
