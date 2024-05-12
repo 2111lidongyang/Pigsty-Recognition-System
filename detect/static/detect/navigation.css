@@ -1,0 +1,93 @@
+/* 主页背景色 */
+body {
+  background-color: #f3f5f7;
+}
+
+.top {
+  background-color: #fff;
+}
+
+/* 导航栏 */
+.wrapper {
+  display: flex;
+  margin: 0 auto;
+  width: 1200px;
+  height: 100px;
+  align-items: center;
+  /* background-color: #fff; */
+  justify-content: space-between;
+}
+
+/* logo  */
+.top .logo {
+  width: 400px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  
+}
+
+.top .logo h1 a {
+  color: #4087f7;
+  font-size: 32px;
+  line-height: 100px;
+}
+
+/* 中间内容 */
+.middle {
+  display: flex;
+  text-align: center;
+  line-height: 100px;
+  font-size: 20px;
+  color: #333;
+}
+
+.middle .txt {
+  height: 100px;
+  /* background-color: aquamarine; */
+}
+
+.middle .txt .title {
+  margin: 0 16px;
+}
+
+
+.middle .txt .title .active,
+.middle .txt .title a:hover {
+  color: #1890ff;
+  border-bottom: 2px solid #00a4ff;
+}
+
+/* 入口 */
+.right {
+  width: 152px;
+  height: 42px;
+  display: flex;
+  font-size: 16px;
+  text-align: center;
+  line-height: 42px;
+}
+
+/* 管理入口 */
+.right span {
+  margin-right: 24px;
+}
+
+.right span a:hover {
+  color: #4087f7;
+}
+
+/* 登录 */
+.right .host {
+  width: 64px;
+  background-color: #1890ff;
+  border-radius: 8px;
+}
+
+.right .host a {
+  color: #fff;
+}
+
+.right .host:hover {
+  background-color: #4087f7;
+}

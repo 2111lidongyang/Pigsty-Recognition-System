@@ -1,0 +1,346 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>账号注册</title>
+</head>
+
+<body>
+  <div class="img-wraper">
+<!--     <img src="{% static 'detect/image/img-bg@2x.png' %}">-->
+     <img src="{% static 'detect/image/227945978142550927.png' %}">
+  </div>
+  <div class="header-wrap">
+    <div class="header-logo">
+      <a href="#">森林环境监测管理系统</a>
+    </div>
+    <div class="form">
+      <div class="text">
+        <div class="welcome">欢迎注册账号</div>
+      </div>
+      <!-- 表单 -->
+      <div class="cr_top">
+        <!-- 账号 -->
+        <div class="ct_input">
+          <div class="ct_text" style="margin-right: 43px;">用户名</div>
+          <input type="text" placeholder="用户名" class="input_text account">
+        </div>
+
+        <!-- 密码 -->
+        <div class="ct_input">
+          <div class="ct_text" style="margin-right: 57px;">密码</div>
+          <input type="password" placeholder="密码" class="input_text password">
+        </div>
+
+        <!-- 确认密码 -->
+        <div class="ct_input">
+          <div class="ct_text" style="margin-right: 30px;">确认密码</div>
+          <input type="password" placeholder="确认密码" class="input_text passwordAgain">
+        </div>
+
+        <div class="ct_input">
+          <div class="ct_text" style="margin-right: 43px;">邀请码</div>
+          <input type="password" placeholder="管理员邀请码（非管理员不填写）" class="input_text invitation ">
+        </div>
+
+        <!-- 确认权限 -->
+        <div class="Permissions">
+          <input type="radio" id="contactChoice3" name="contact" value="1" />
+          <label for="contactChoice3">普通用户</label>
+          <input type="radio" id="contactChoice2" name="contact" value="2" style="margin-left: 140px;" />
+          <label for="contactChoice2">管理员</label>
+        </div>
+
+        <!-- 按钮 -->
+        <div class="ct_input_1">
+          <button class="base-button">注册</button>
+          <div style="margin-left: 30px;">
+            <a href='http://127.0.0.1:8000/detect/login/'>已有账号进行登录</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
+<style>
+  *,
+  ::after,
+  ::before {
+    box-sizing: border-box;
+  }
+
+  .ct_text {
+    line-height: 35px;
+  }
+
+  body {
+    margin: 0;
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      PingFangSC-Regular,
+      "PingFang SC",
+      "Microsoft YaHei",
+      "Helvetica Neue",
+      Helvetica,
+      Arial,
+      sans-serif;
+    font-size: 14px;
+    color: #40404c;
+  }
+
+  a {
+    color: #40404c;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #fc5832;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  ul,
+  ol,
+  p {
+    padding: 0;
+    margin: 0;
+  }
+
+  .container {
+    width: 1080px;
+    margin: 0 auto;
+  }
+
+  button,
+  input {
+    resize: none;
+  }
+
+  /* .bg {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  overflow: hidden;
+  background-color: #c0e4f3;
+  }
+  .bg-img {
+  background-image: url("../img-bg@2x.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  } */
+
+  /* 背景图 */
+  .img-wraper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    overflow: hidden;
+    /* background-color: #c0e4f3; */
+  }
+
+  .img-wraper img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+  }
+
+
+  .header-wrap {
+    position: fixed;
+    /* position: relative; */
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* logo  */
+  .header-wrap .header-logo {
+    z-index: 1000;
+    align-items: center;
+    padding: 0 56px;
+    height: 60px;
+  }
+
+  .header-wrap .header-logo a {
+    line-height: 60px;
+    font-size: 28px;
+    color: #000;
+  }
+
+  /* 表单 */
+  .header-wrap .form {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 400px;
+    width: 500px;
+  }
+
+  /* 欢迎注册 */
+  .header-wrap .form .text .welcome {
+    font-size: 38px;
+    line-height: 1.5;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #000;
+  }
+
+  .header-wrap .form .text .simple {
+    font-size: 18px;
+    margin-bottom: 32px;
+    line-height: 1.3;
+    color: #000;
+  }
+
+  /* 注册表单 */
+  .ct_input {
+    padding-bottom: 22px;
+    display: flex;
+  }
+
+  .ct_input_1 {
+    padding-bottom: 22px;
+  }
+
+  .input_text {
+    padding: 8px;
+    width: 320px;
+    line-height: 1.3;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: rgba(255, 255, 255, .6);
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+  }
+
+  .input_text:hover {
+    border-color: #777;
+    outline: 0;
+  }
+
+
+  .Permissions {
+    /* margin-top: 10px; */
+    margin-bottom: 20px;
+  }
+
+
+  .base-button {
+    box-sizing: border-box;
+    width: 328px;
+    height: 48px;
+    font-size: 18px;
+    margin-left: 30px;
+    border-radius: 10px;
+    color: #fff;
+    border: 1px solid #0085ff;
+    background-color: #0085ff;
+    /* margin-bottom: 14px; */
+  }
+
+  .button:hover {
+    cursor: pointer;
+  }
+</style>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/1.2.0/axios.min.js"></script>
+<script>
+  document.querySelector('.base-button').addEventListener('click', () => {
+
+    console.log('注册')
+    const user_name = document.querySelector('.account').value
+    const user_pwd = document.querySelector('.password').value
+    const user_pwdAgain = document.querySelector('.passwordAgain').value
+    radioButtons = document.getElementsByName("contact")
+    if (user_name === '' || user_pwd === '' || user_pwdAgain === '') {
+      alert('请填写完整')
+      return
+    }
+    if (user_pwd != user_pwdAgain) {
+      alert('请确定密码是否一致')
+      return
+    }
+    var radioButtons = document.getElementsByName("contact")
+    for (var i = 0; i < radioButtons.length; i++) {
+      if (radioButtons[i].checked) {
+        var user_class = radioButtons[i].value;
+        break;
+      }
+    }
+    console.log(user_class)
+    if (!user_class) {
+      alert('请选择注册类型')
+      return
+    }
+
+    if (user_class === '2') {
+      console.log('管理员')
+      const invitation = document.querySelector('.invitation').value
+      console.log(invitation)
+      if (invitation !== '211166') {
+        alert('邀请码错误')
+        return
+      } else {
+        alert('邀请码正确')
+      }
+
+    }
+
+
+    axios({
+      url: 'https://www.ydtloan.com/person/user/Register',
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      data: {
+        user_name,
+        user_pwd,
+        user_class,
+      }
+    }).then((res) => {
+      console.log(res)
+      console.log(res.data.msg)
+      if (res.data.msg === true) {
+        alert('注册成功')
+        window.location.href = 'http://127.0.0.1:8000/detect/login/';
+
+      }
+      if (res.data.msg === false) {
+        alert(res.data.error)
+      }
+
+    })
+
+  })
+</script>
+
+</html>

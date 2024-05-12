@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>人流管理</title>
+  <!-- 字体图标 -->
+  <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_3736758_vxpb728fcyh.css">
+  <!-- 引入bootstrap.css -->
+  <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+  <!-- 核心样式 -->
+  <!-- <link rel="stylesheet" href="./css/index.css"> -->
+</head>
+
+<body>
+  <!-- 导航栏 -->
+  <div class="top">
+    <div class="wrapper">
+      <div class="logo">
+        <!-- 首页 -->
+        <h1><a href="#">森林环境监测管理系统</a></h1>
+      </div>
+      <div class="middle">
+        <div class="txt">
+          <span class="title"><a href='http://127.0.0.1:8000/detect/home/'>报警功能</a></span>
+        </div>
+        <div class="txt">
+          <span class="title datamanage"><a href='http://127.0.0.1:8000/detect/showdata/'>数据查看</a></span>
+        </div>
+        <div class="txt">
+          <span class="title"><a href='http://127.0.0.1:8000/detect/userinfo/'>个人信息</a></span>
+        </div>
+        <div class="txt">
+          <span class="title"><a href='http://127.0.0.1:8000/detect/personmanager/' class="active">人员管理</a></span>
+        </div>
+         <div class="txt">
+          <span class="title"><a href='http://127.0.0.1:8000/detect/datamanager/' class="active">数据管理</a></span>
+        </div>
+      </div>
+      <div class="right">
+        <!-- 管理员入口 -->
+        <!-- <span class="manager"><a href="#">管理入口</a></span> -->
+        <!-- 会议主持人入口 -->
+        <div class="host"><a href='http://127.0.0.1:8000/detect/login/'>退出登录</a></div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="btn_account">添加账号</div> -->
+  <div class="modal fade add-modal">
+    <!-- 中间白色区域 -->
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header top">
+          <span>添加账号</span>
+          <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body form-wrap">
+          <!-- 新增表单 -->
+          <form class="add-form">
+            <div class="mb-3">
+              <label for="bookname" class="form-label">账号</label>
+              <input type="text" class="form-control user_name" placeholder="请输入账号" name="data">
+            </div>
+            <div class="mb-3">
+              <label for="bookname" class="form-label">密码</label>
+              <input type="password" class="form-control user_pwd" placeholder="请输入密码" name="name">
+            </div>
+            <div class="mb-3">
+              <label for="bookname" class="form-label">级别</label>
+              <div>
+                <input type="radio" id="admin" name="level" value="2">
+                <label for="admin">管理员</label>
+              </div>
+              <div>
+                <input type="radio" id="user" name="level" value="1">
+                <label for="user">普通用户</label>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer btn-group">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal"> 取消 </button>
+          <button type="button" class="btn btn-primary add-btn"> 保存 </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <!-- 头部标题和添加按钮 -->
+    <div class="top">
+      <h3>人员管理</h3>
+      <button type="button" class="btn btn-primary plus-btn" data-bs-toggle="modal" data-bs-target=".add-modal"> + 添加
+      </button>
+    </div>
+    <!-- 数据列表 -->
+    <table class="table">
+      <thead class="table-light">
+        <tr>
+          <th style="width: 150px;">序号</th>
+          <th>账号</th>
+          <th>密码</th>
+          <th>等级</th>
+          <th style="width: 180px;">操作</th>
+        </tr>
+      </thead>
+      <tbody class="list">
+        <!-- <tr>
+          <td>1</td>
+          <td>JavaScript程序设计</td>
+          <td>JavaScript程序设计</td>
+          <td>JavaScript程序设计</td>
+          <td>马特·弗里斯比</td>
+          <td>人民邮电出版社</td>
+          <td>
+            <span class="del">删除</span>
+          </td>
+        </tr> -->
+      </tbody>
+    </table>
+  </div>
+  <!-- 新增-弹出框 -->
+  </div>
+  </div>
+  <style>
+    .btn_account {
+      width: 130px;
+      text-align: center;
+      line-height: 40px;
+      height: 40px;
+      border-radius: 20px;
+      background-color: #1890ff;
+      color: #fff;
+      position: absolute;
+      right: 80px;
+      top: 120px;
+    }
+
+
+
+
+    /* 公共*/
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .container {
+      width: 1340px;
+      margin: 0 auto;
+      padding-top: 60px;
+      box-sizing: border-box;
+    }
+
+    /* alert提示框 */
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .toast .toast-body {
+      padding: 0 !important;
+    }
+
+    .toast .alert-success {
+      margin-bottom: 0 !important;
+    }
+
+    /* 头部导航 */
+    .container .top {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .container .top h3 {
+      font-weight: 900;
+    }
+
+    .container .top .plus-btn {
+      background-color: #539ACB !important;
+      color: #fff;
+      border: none;
+    }
+
+    /* 表格部分 */
+    .table {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .table-light th {
+      background-color: #939CA7 !important;
+      color: #ffffff;
+      font-family: PingFangSC-Medium;
+      font-size: 16px;
+      text-align: center;
+      font-weight: 500;
+      border-right: 1px solid lightgray;
+    }
+
+    .table-light th:last-of-type {
+      border-right: none;
+    }
+
+    /* 表格内容 */
+    .table tbody td {
+      color: #696F77;
+    }
+
+    .table .del {
+      color: #E5964C;
+      margin-right: 30px;
+    }
+
+    .table .edit {
+      color: #539ACB;
+    }
+
+    .table tbody tr {
+      height: 30px;
+      line-height: 30px;
+    }
+
+    .table tbody tr td:last-of-type span {
+      cursor: pointer;
+    }
+
+    /* 弹出层 */
+    .modal .top {
+      display: flex;
+      justify-content: center;
+      background-color: #F0F3F7;
+      padding: 15px 0;
+      width: 100%;
+      position: relative;
+      color: #1E2023;
+    }
+
+    /* 右上角-关闭按钮 */
+    .modal .btn-close {
+      font-size: 12px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 23px;
+      /* 覆盖bootstrap样式 */
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 表单容器 */
+    .form-wrap {
+      box-sizing: border-box;
+      background-color: white;
+      padding: 40px;
+    }
+
+    .form-wrap .form-label {
+      color: #696F77;
+    }
+
+    /* 修改输入框默认占位文字
+    webkit内核, firefox18-, firfox19+, 其他
+    */
+    .form-wrap input::-webkit-input-placeholder {
+      color: #BFBFBF !important;
+      font-size: 14px;
+    }
+
+
+    /* 底部按钮组 */
+    .modal-footer {
+      border-top: 0;
+    }
+
+    .btn-group {
+      text-align: center;
+      width: 100%;
+    }
+
+    /* 修改bs的按钮弹性布局-改成自己设置大小 */
+    .btn-group,
+    .btn-group-vertical {
+      display: block;
+    }
+
+    .btn-group button {
+      width: 120px
+    }
+
+    .btn-group button:first-of-type {
+      border: 1px solid #E3E3E3;
+      background-color: #fff;
+      color: black;
+      margin-right: 60px;
+    }
+
+    .btn-group button:last-of-type {
+      background-color: #539ACB;
+    }
+
+    .alert-success {
+      border-color: transparent;
+    }
+
+    .toast {
+      border: none;
+    }
+
+    /* 主页背景色 */
+    body {
+      background-color: #f3f5f7;
+    }
+
+    .top {
+      background-color: #fff;
+    }
+
+    /* 导航栏 */
+    .wrapper {
+      display: flex;
+      margin: 0 auto;
+      width: 1200px;
+      height: 100px;
+      align-items: center;
+      /* background-color: #fff; */
+      justify-content: space-between;
+    }
+
+    /* logo  */
+    .top .logo {
+      width: 400px;
+      height: 100px;
+      text-align: center;
+      line-height: 100px;
+
+    }
+
+    .top .logo h1 a {
+      color: #4087f7;
+      font-size: 32px;
+      line-height: 100px;
+    }
+
+    /* 中间内容 */
+    .middle {
+      display: flex;
+      text-align: center;
+      line-height: 100px;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .middle .txt {
+      height: 100px;
+      /* background-color: aquamarine; */
+    }
+
+    .middle .txt .title {
+      margin: 0 16px;
+    }
+
+
+    .middle .txt .title .active,
+    .middle .txt .title a:hover {
+      color: #1890ff;
+      border-bottom: 2px solid #00a4ff;
+    }
+
+    /* 入口 */
+    .right {
+      width: 152px;
+      height: 42px;
+      display: flex;
+      font-size: 16px;
+      text-align: center;
+      line-height: 42px;
+    }
+
+    /* 管理入口 */
+    .right span {
+      margin-right: 24px;
+    }
+
+    .right span a:hover {
+      color: #4087f7;
+    }
+
+    /* 登录 */
+    .right .host {
+      width: 128px;
+      background-color: #1890ff;
+      border-radius: 8px;
+    }
+
+    .right .host a {
+      color: #fff;
+    }
+
+    .right .host:hover {
+      background-color: #4087f7;
+    }
+
+    *,
+    ::after,
+    ::before {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        PingFangSC-Regular,
+        "PingFang SC",
+        "Microsoft YaHei",
+        "Helvetica Neue",
+        Helvetica,
+        Arial,
+        sans-serif;
+      font-size: 14px;
+      color: #40404c;
+    }
+
+    a {
+      color: #40404c;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #fc5832;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul,
+    ol,
+    p {
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      width: 1080px;
+      margin: 0 auto;
+    }
+
+    button,
+    input {
+      resize: none;
+    }
+  </style>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.2.0/axios.min.js"></script>
+  <!-- <script src="./lib/form-serialize.js"></script> -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/js/bootstrap.min.js"></script>
+  <script>
+    /**
+ * 目标1：渲染图书列表
+ *  1.1 获取数据
+ *  1.2 渲染数据
+ */
+
+    // 封装-获取并渲染图书列表函数
+    function getBooksList() {
+      // 1.1 获取数据
+      axios({
+        url: 'https://www.ydtloan.com/person/data/getuserdata',
+        method: 'GET'
+      }).then(res => {
+        console.log(res)
+        const booksList = res.data.data
+        console.log(booksList)
+        // 1.2 渲染数据
+        const htmlStr = booksList.map((item, index) => {
+          console.log(item[2])
+          let lie;
+          if (item[2] === '1') {
+            console.log('成功')
+            lie = '普通用户'
+          } else {
+            lie = '管理员'
+          }
+          return `<tr>
+      <td> ${index + 1} </td>
+      <td> ${item[0]} </td>
+      <td> ${item[1]} </td>
+      <td> ${lie} </td>
+      <td data-id=${item[0]}>
+        <span class="del">删除</span>
+        <span class="change">修改</span>
+      </td>
+    </tr>`
+        }).join('')
+        // console.log(htmlStr)
+        document.querySelector('.list').innerHTML = htmlStr
+      })
+    }
+
+    // 网页加载运行，获取并渲染列表一次
+    getBooksList()
+
+    /**
+     *  目标2：新增图书
+     *    2.1 新增弹框->显示和隐藏
+     *    2.2 收集表单数据，并提交到服务器保存
+     *    2.3 刷新图书列表
+     **/
+
+
+    // 3.1 删除元素 -> 点击 （事件委托）
+    document.querySelector('.list').addEventListener('click', e => {
+      // 获取触发事件目标元素
+      // console.log(e.target)
+      // 判断点击的是删除元素
+      if (e.target.classList.contains('del')) {
+        // console.log('点击删除元素')
+        // 获取图书id（自定义属性id）
+        const theId = e.target.parentNode.dataset.id
+        console.log(theId)
+        // 3.2 调用删除接口
+        const user_name = `'${theId}'`
+        axios({
+          url: `https://www.ydtloan.com/person/data/deluserdata?user_name=${user_name}`,
+          method: 'DELETE',
+        }).then((res) => {
+          // 3.3 刷新图书列表
+          console.log(res)
+          getBooksList()
+        })
+      }
+
+      if (e.target.classList.contains('change')) {
+        // console.log('点击删除元素')
+        // 获取图书id（自定义属性id）
+        const theId = e.target.parentNode.dataset.id
+        console.log(theId)
+        // 3.2 调用删除接口
+        const user_name = `'${theId}'`
+        axios({
+          url: `https://www.ydtloan.com/person/data/updateuser?user_name=${user_name}`,
+          method: 'POST',
+        }).then((res) => {
+          // 3.3 刷新图书列表
+          console.log(res.data.error)
+          if (res.data.error) {
+            alert(res.data.error)
+          }
+          getBooksList()
+        })
+      }
+    })
+
+
+
+
+
+
+
+
+    // 弹出
+    // 2.1 创建弹框对象
+    const addModalDom = document.querySelector('.add-modal')
+    const addModal = new bootstrap.Modal(addModalDom)
+    // 保存按钮->点击->隐藏弹框
+    document.querySelector('.add-btn').addEventListener('click', () => {
+      // 2.2 收集表单数据，提交到服务器保存
+      const user_name = document.querySelector('.user_name').value
+      const user_pwd = document.querySelector('.user_pwd').value
+      var radioButtons = document.getElementsByName('level');
+      // 遍历单选框元素
+      for (var i = 0; i < radioButtons.length; i++) {
+        // 检查是否被选中
+        if (radioButtons[i].checked) {
+          // 获取选中的单选框的值
+          var selectedValue = radioButtons[i].value;
+          console.log("选中的值为：" + selectedValue);
+          break;
+        }
+      }
+      const user_class = selectedValue
+      // 提交到服务器
+      axios({
+        url: 'https://www.ydtloan.com/person/user/Register',
+        method: 'POST',
+        data: {
+          user_name,
+          user_pwd,
+          user_class
+        }
+      }).then((res) => {
+        console.log(res)
+
+        getBooksList()
+      })
+      addModal.hide()
+    })
+
+  </script>
+  <!-- 核心逻辑 -->
+</body>
+
+</html>

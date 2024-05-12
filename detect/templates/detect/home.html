@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>森林环境监测管理系统</title>
+</head>
+
+<body>
+  <!-- 导航栏 -->
+  <div class="top">
+    <div class="wrapper">
+      <div class="logo">
+        <!-- 首页 -->
+        <h1><a href="#">森林环境监测管理系统</a></h1>
+      </div>
+      <div class="middle">
+        <div class="txt">
+          <span class="title"><a href='http://127.0.0.1:8000/detect/home/' class="active">报警功能</a></span>
+        </div>
+        <div class="txt">
+          <span class="title"><a class="dataManage" href='http://127.0.0.1:8000/detect/showdata/'>数据查看</a></span>
+        </div>
+        <div class="txt">
+          <span class="title"><a href='http://127.0.0.1:8000/detect/userinfo/'>个人信息</a></span>
+        </div>
+        <div class="txt">
+          <span class="title"><a class="Manage" href='http://127.0.0.1:8000/detect/personmanager/'>人员管理</a></span>
+        </div>
+                <div class="txt">
+          <span class="title"><a class="Manage" href='http://127.0.0.1:8000/detect/datamanager/'>数据管理</a></span>
+        </div>
+      </div>
+      <div class="right">
+        <!-- 管理员入口 -->
+        <!-- <span class="manager"><a href="#">管理入口</a></span> -->
+        <!-- 会议主持人入口 -->
+        <div class="host"><a href='http://127.0.0.1:8000/detect/login/'>退出登录</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sp" style="margin-top: 60px;">
+    <h1>现场画面</h1>
+    <img id="video_feed" src="#">
+    <!-- <p id="personCount">人数：0</p> 显示人数的元素 -->
+    <p id="person_count">Person Count: 0</p>
+    <input class="people" type="number">人数阈值
+    <button class="btn">确定人数</button>
+  </div>
+
+</body>
+<style>
+  *,
+  ::after,
+  ::before {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      PingFangSC-Regular,
+      "PingFang SC",
+      "Microsoft YaHei",
+      "Helvetica Neue",
+      Helvetica,
+      Arial,
+      sans-serif;
+    font-size: 14px;
+    color: #40404c;
+  }
+
+  a {
+    color: #40404c;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #fc5832;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  ul,
+  ol,
+  p {
+    padding: 0;
+    margin: 0;
+  }
+
+  .container {
+    width: 1080px;
+    margin: 0 auto;
+  }
+
+  button,
+  input {
+    resize: none;
+  }
+
+  .sp {
+    margin: 0 auto;
+    text-align: center;
+    width: 1000px;
+    height: 600px;
+  }
+
+  .sp img {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* 主页背景色 */
+  body {
+    background-color: #f3f5f7;
+  }
+
+  .top {
+    background-color: #fff;
+  }
+
+  /* 导航栏 */
+  .wrapper {
+    display: flex;
+    margin: 0 auto;
+    width: 1200px;
+    height: 100px;
+    align-items: center;
+    /* background-color: #fff; */
+    justify-content: space-between;
+  }
+
+  /* logo  */
+  .top .logo {
+    width: 400px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+
+  }
+
+  .top .logo h1 a {
+    color: #4087f7;
+    font-size: 32px;
+    line-height: 100px;
+  }
+
+  /* 中间内容 */
+  .middle {
+    display: flex;
+    text-align: center;
+    line-height: 100px;
+    font-size: 20px;
+    color: #333;
+  }
+
+  .middle .txt {
+    height: 100px;
+    /* background-color: aquamarine; */
+  }
+
+  .middle .txt .title {
+    margin: 0 16px;
+  }
+
+
+  .middle .txt .title .active,
+  .middle .txt .title a:hover {
+    color: #1890ff;
+    border-bottom: 2px solid #00a4ff;
+  }
+
+  /* 入口 */
+  .right {
+    width: 152px;
+    height: 42px;
+    display: flex;
+    font-size: 16px;
+    text-align: center;
+    line-height: 42px;
+  }
+
+  /* 管理入口 */
+  .right span {
+    margin-right: 24px;
+  }
+
+  .right span a:hover {
+    color: #4087f7;
+  }
+
+  /* 登录 */
+  .right .host {
+    width: 128px;
+    background-color: #1890ff;
+    border-radius: 8px;
+  }
+
+  .right .host a {
+    color: #fff;
+  }
+
+  .right .host:hover {
+    background-color: #4087f7;
+  }
+</style>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/1.2.0/axios.min.js"></script>
+<script>
+
+  document.querySelector('.Manage').addEventListener('click', (event) => {
+    const value = localStorage.getItem("identity")
+    console.log(value)
+    if (value === '1') {
+      alert('没有权限')
+      event.preventDefault(); // 阻止默认行为（跳转）
+    }
+  })
+
+
+  let people = 5
+  document.querySelector('.btn').addEventListener('click', () => {
+    const count = document.querySelector('.people').value
+    people = count
+    console.log('人数', count)
+  })
+
+  const personCountElement = document.getElementById('person_count');
+
+  // personCountElement.innerText = '这里是添加的文字'; // 给元素添加文字
+
+  // 使用setInterval函数每隔5秒执行一次匿名函数
+  setInterval(() => {
+    // 使用axios库发起GET请求
+    axios({
+      url: 'http://127.0.0.1:8000/person/data/getdata',
+      method: 'GET'
+    }).then((res) => {
+      // 请求成功后，将响应结果打印到控制台
+      console.log(res);
+      const count = res.data.data[0]
+      console.log(count)
+      personCountElement.innerText = '当前人数:' + count; // 给元素添加文字
+      const number = Number(count)
+      console.log(number)
+      if (number > people) {
+        alert('人数过多')
+      }
+    });
+  }, 3000);
+</script>
+
+</html>
